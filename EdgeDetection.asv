@@ -24,15 +24,15 @@ sigma=2;%Sigma, Attention à suivre la règle des 3sigmas plus ou moins
 
 %On détermine les composantes x et y de l'image, en convoluant I avec la
 %dérivée de la gaussienne en fonction de x ou y
-Gx=-(X/2*pi*(sigma)^4).*exp(-(X.^2+Y.^2)/(2*sigma^2));
-Gy=-(Y/2*pi*(sigma)^4).*exp(-(X.^2+Y.^2)/(2*sigma^2));
+Ix=-(X/2*pi*(sigma)^4).*exp(-(X.^2+Y.^2)/(2*sigma^2));
+Iy=-(Y/2*pi*(sigma)^4).*exp(-(X.^2+Y.^2)/(2*sigma^2));
 
-Ix=convn(A,Gx,'same'); %C'est le gradient de X 
-Iy=convn(A,Gy,'same'); % C'est le gradient de Y 
+GradX=convn(A,Ix,'same'); %C'est le gradient de X 
+GradY=convn(A,Iy,'same'); % C'est le gradient de Y 
 %Ca permet de faire ressortir les endroits où les contours sont forts aka
 %les contours
 
-G=(Ix.*Ix+Iy.*Iy).^0.5; %Composante normalisée = norme du gradient
+G=(GradX.*GradX+GradY.*GradY).^0.5; %Composante normalisée = norme du gradient
 subplot(2,2,3);
 imshow(G, [0 max(max(G))])
 colormap(flipud(gray(256)))
@@ -70,7 +70,7 @@ Ixy = convn(Ix.*Iy, f,'same'); % Cyy
 k = 0.06;
 
 %C'est la matrice de Harris
-D = Ix2*Iy2 -(Ixy^2) - (k*(Ix2+Iy2)^2);
+D = Ix2*Iy2 -(Ixy^2) - (k*(Ix2+Iy2)^2)
 
 imshow(D);
 
