@@ -6,6 +6,9 @@ EdgeDetection.m
 
 # Functions
 grayScale.m  : Converting colored image into grayscale image
+
 gaussianFilter.m : Applying the gaussian filter to the image
+
 canny.m : Canny Edge Detection applied to the image
+
 harris.m : Harris Corner Detection applied to the image
