@@ -5,6 +5,7 @@ function [ Ifilt ] = guassianFilter( I,sigmaGauss, sizeFilter )
     % sizeFilter : "length of gaussFilter vector"
 x = linspace(-sizeFilter / 2, sizeFilter / 2, sizeFilter);
 gaussFilter = exp(-x .^ 2 / (2 * sigmaGauss ^ 2));
+
 gaussFilter = gaussFilter / sum (gaussFilter); % normalize
 
 %apply the gaussian filter on the image

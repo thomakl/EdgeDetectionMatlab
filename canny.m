@@ -1,9 +1,9 @@
-function [ G ] = canny(I,sigma)
+function [ G, Ix, Iy ] = canny(I,sigma)
 %CANNY Summary of this function goes here
 % Create a version of the image only with its edges
 
-%Sigma, Attention à suivre la règle des 3sigmas plus ou moins
-sizeFilter = sigma*3;
+%Sigma, Attention à suivre la regle des 3sigmas plus ou moins
+sizeFilter = sigma*3+1;
 % Taille de filtre
 [X,Y]=meshgrid(-sizeFilter:sizeFilter);% Taille du filtre
 
