@@ -3,7 +3,19 @@ clear all
 
 v2= VideoReader('template.mp4');
 
-for n = 1
+image = read(v2,1);
+imshow(image);
+[x,y] = ginput(4);
+hold on
+scatter(x,y);
+x(5) = x(1);
+y(5)= y(1);
+plot(x,y);
+
+figure,
+
+
+for n = [1:20]
     im=read(v2,n);
     imD=double(im);
 
@@ -15,36 +27,39 @@ for n = 1
     % Create a version of the image only with its edges
     [G,Ix,Iy] = canny(grayI,2);
 
-%     imshow(grayI, [0 400]);
-%     colormap(flipud(gray(256)));
-    
 
-    [x,y]=cornerPage(grayI)
+    %imshow(G, [0 400]);
+    colormap(flipud(gray(256)));
+        
+    %[x,y]=cornerPage(G);
 
     D = harris(G,0.05, Ix, Iy,2).*abs(harris(G,0.05, Ix, Iy, 5));
-%     D =max(D,0);
-%     colormap(flipud(gray(256)));
-%     imshow(D(500:1000,500:1000,:), [0 10]);
+    %D=max(D,0);
+    %colormap(flipud(gray(256)));
+    imshow(D, [0 10]);
+        
     
-    
-    [pX,pY] = CornerAnalysis(D,x(1),y(1),35)
-    
-%     cropH = D(500:1000,500:1000,:);
-%     maxH = max(max(cropH))
-%     [X Y]=ind2sub(size(cropH),maxH)
-%     figure, 
-%     imshow(grayI(800:1000,:1000,:), [0, 400])
-%     hold on
-%     plot(X,Y,'r*');     % Mark intersection with red asterisk  
-%     scatter(round(X),round(Y),'r','filled')
-%     
-    
-
-    
-    
-
-%     figure, imshow(imCropP1)
-     
+    F(n)=getframe(gcf);
+    drawnow
 end
+
+%------------ Ecrire la video -----------------------
+
+% create the video writer with 1 fps
+writerObj = VideoWriter('myVideo.mp4', 'MPEG-4');
+writerObj.FrameRate = 2;
+% set the seconds per image
+
+% open the video writer
+open(writerObj);
+
+% write the frames to the video
+for i=1:length(F)
+    % convert the image to a frame
+    frame = F(i) ;    
+    writeVideo(writerObj, frame);
+end
+% close the writer object
+close(writerObj);
 
 
