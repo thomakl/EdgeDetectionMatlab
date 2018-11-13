@@ -1,18 +1,14 @@
-%function [C]= ecrireCoords(coord_x,coord_y)
-    
-    x= 0;
-    y = 1;
-    
-    %On ouvre un fichier ou le créé
-    file = fopen('test.txt','w');
 
-    %écrit dans ce fichier, file est sa reference pour matlab
-        
-    fprintf(file,'%s\n','n) x=');
-    fprintf(file,'%i\t %i\t %i\n',x);
-    fprintf(file,'%s\n','y=');
-    fprintf(file,'%i\t %i\t %i\n',y);
+x1=0;y1=1;
+x2=10;y2=21;
+x3=100;y3=15;
+x4=4;y4=12;
 
-    %On ferme le fichier, pour pouvoir le lire après.
-    fclose(file);
-%end
+CoinHG=[x1,y1];
+CoinHD=[x2,y2];
+CoinBD=[x3,y3];
+CoinBG=[x4,y4];
+
+C =[CoinHG, CoinHD, CoinBD, CoinBG];
+
+save('test.mat','C');
