@@ -9,12 +9,16 @@ function [ pX,pY ] = CornerAnalysis(I,Xo,Yo,size )
 %   - Return the [X,Y] value of the "corner" in the whole image
 
     imCropPXY = imcrop(I,[Xo-size Yo-size 2*size 2*size]);
+%     imshow(imCropPXY)
     
 % Apply the findMaxHarrisCorner
     [ xMaxHarris,yMaxHarris ] = findMaxHarrisCorner(imCropPXY);
 %  Return the [X,Y] value of the corner
-    pX = xMaxHarris+Xo;
-    pY = yMaxHarris+Yo;
+
+% --------------- Check those two lines : the scatter is not correctly on
+% the corner but near it.
+    pX = Xo-xMaxHarris;
+    pY = Yo-yMaxHarris;
 
 end
 

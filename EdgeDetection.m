@@ -8,14 +8,14 @@ image = read(v2,1);
 imshow(image);
 
 
-
-
 [x,y] = ginput(4);
 hold on
 scatter(x,y);
 x(5) = x(1);
 y(5)= y(1);
 plot(x,y);
+
+close all
 
 % Save the coordinates of each corner into the variable coordinatesCorner
 % (manually)
@@ -43,10 +43,10 @@ for n = [1:50]
     D = harris(G,0.05, Ix, Iy,2).*abs(harris(G,0.05, Ix, Iy, 5));
     %D=max(D,0);
     colormap(flipud(gray(256)));
-%     imshow(D, [0 10]);
+%     
     
     
-    windowSize = 40;
+    windowSize = 10;
     % find the best corner for each 4 corners of the page
     if n == 1
         [ xA,yA ] = CornerAnalysis(D,x(1),y(1),windowSize );
@@ -63,7 +63,12 @@ for n = [1:50]
 
     end
     
-
+    imshow(D, [0 10]);
+    hold on
+    scatter(xA,yA)
+    scatter(xB,yB)
+    scatter(xC,yC)
+    scatter(xD,yD)
     
     % Save the new coordinates of each corner into the variable coordinatesCorner
     coordinatesCorner = [coordinatesCorner;xA,yA,xB,yB,xC,yC,xD,yD];
@@ -76,15 +81,9 @@ for n = [1:50]
 %     
     
     
-%     hold on
-%     scatter(x,y);
-%     plot(x,y);
     
     
-    
-%     
-   
-    
+
 %     F(n)=getframe(gcf);
 %     drawnow
 
