@@ -8,15 +8,13 @@ function [ pX,pY ] = CornerAnalysis(I,Xo,Yo,size )
 %    the max value (the corner)
 %   - Return the [X,Y] value of the "corner" in the whole image
 
-% Take the sub-image according to a windows size
-    [xmin, ymin, width, height] = firstWindowCorner(Xo,Yo,size);
-% Crop the image
-    imCropPXY = imcrop(I ,[xmin, ymin, width, height]);
+    imCropPXY = imcrop(I,[Xo-size Yo-size 2*size 2*size]);
+    
 % Apply the findMaxHarrisCorner
     [ xMaxHarris,yMaxHarris ] = findMaxHarrisCorner(imCropPXY);
 %  Return the [X,Y] value of the corner
-    pX = xMaxHarris+xmin;
-    pY = yMaxHarris+ymin;
+    pX = xMaxHarris+Xo;
+    pY = yMaxHarris+Yo;
 
 end
 

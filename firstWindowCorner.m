@@ -9,8 +9,8 @@ function [xmin, ymin, width, height] = firstWindowCorner( x0,y0,size )
 
     xmin = x0 -size;
     ymin = y0 +size;
-    width = x0 +size;
-    height = y0 +size;
+    width = size;
+    height = size;
 end
 
 

@@ -6,6 +6,10 @@ v2= VideoReader('template.mp4');
 
 image = read(v2,1);
 imshow(image);
+
+
+
+
 [x,y] = ginput(4);
 hold on
 scatter(x,y);
@@ -18,11 +22,7 @@ plot(x,y);
 coordinatesCorner = [x(1),y(1),x(2),y(2),x(3),y(3),x(4),y(4)];
 predictPoints = ones(8);
 
-
-% figure,
-
-
-for n = [1:5]
+for n = [1:50]
     im=read(v2,n);
     imD=double(im);
 
@@ -42,36 +42,38 @@ for n = [1:5]
 
     D = harris(G,0.05, Ix, Iy,2).*abs(harris(G,0.05, Ix, Iy, 5));
     %D=max(D,0);
-    %colormap(flipud(gray(256)));
+    colormap(flipud(gray(256)));
 %     imshow(D, [0 10]);
     
+    
+    windowSize = 40;
     % find the best corner for each 4 corners of the page
     if n == 1
-        [ xA,yA ] = CornerAnalysis(D,x(1),y(1),40 );
-        [ xB,yB ] = CornerAnalysis(D,x(2),y(2),40);
-        [ xC,yC ] = CornerAnalysis(D,x(3),y(3),40);
-        [ xD,yD ] = CornerAnalysis(D,x(4),y(4),40);
+        [ xA,yA ] = CornerAnalysis(D,x(1),y(1),windowSize );
+        [ xB,yB ] = CornerAnalysis(D,x(2),y(2),windowSize);
+        [ xC,yC ] = CornerAnalysis(D,x(3),y(3),windowSize);
+        [ xD,yD ] = CornerAnalysis(D,x(4),y(4),windowSize);
    
     else
 
-        [ xA,yA ] = CornerAnalysis(D,coordinatesCorner(n,1),coordinatesCorner(n,2),40);
-        [ xB,yB ] = CornerAnalysis(D,coordinatesCorner(n,3),coordinatesCorner(n,4),40);
-        [ xC,yC ] = CornerAnalysis(D,coordinatesCorner(n,5),coordinatesCorner(n,6),40);
-        [ xD,yD ] = CornerAnalysis(D,coordinatesCorner(n,7),coordinatesCorner(n,8),40);
+        [ xA,yA ] = CornerAnalysis(D,coordinatesCorner(n-1,1),coordinatesCorner(n-1,2),windowSize);
+        [ xB,yB ] = CornerAnalysis(D,coordinatesCorner(n-1,3),coordinatesCorner(n-1,4),windowSize);
+        [ xC,yC ] = CornerAnalysis(D,coordinatesCorner(n-1,5),coordinatesCorner(n-1,6),windowSize);
+        [ xD,yD ] = CornerAnalysis(D,coordinatesCorner(n-1,7),coordinatesCorner(n-1,8),windowSize);
 
     end
     
-
 
     
     % Save the new coordinates of each corner into the variable coordinatesCorner
     coordinatesCorner = [coordinatesCorner;xA,yA,xB,yB,xC,yC,xD,yD];
     
-    % Predict the new coordinates of each corner into the variable coordinatesCorner   
-    if n > 3
-        predictPoints =  predictCorners(predictPoints,coordinatesCorner,n);
-    end
     
+%     % Predict the new coordinates of each corner into the variable coordinatesCorner   
+%     if n > 3
+%         predictPoints =  predictCorners(predictPoints,coordinatesCorner,n);
+%     end
+%     
     
     
 %     hold on
@@ -88,6 +90,7 @@ for n = [1:5]
 
 % predictPoints
 end
+save('pointsCordinates.mat','coordinatesCorner');
 
 % Display the variables
 % coordinatesCorner
