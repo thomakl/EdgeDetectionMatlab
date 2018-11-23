@@ -73,10 +73,10 @@ for n = [1:200]
     % Predict the new coordinates of each corner into the variable coordinatesCorner   
     if n > 4
         predictPoints =  predictCorners(predictPoints,coordinatesCorner,n);
-        [ xA,yA ] = CornerAnalysis(D,predictPoints(n-3,1),predictPoints(n-3,2),windowSize);
-        [ xB,yB ] = CornerAnalysis(D,predictPoints(n-3,3),predictPoints(n-3,4),20);
-        [ xC,yC ] = CornerAnalysis(D,predictPoints(n-3,5),predictPoints(n-3,6),windowSize);
-        [ xD,yD ] = CornerAnalysis(D,predictPoints(n-3,7),predictPoints(n-3,8),windowSize);
+        [ xA,yA ] = CornerAnalysis(D,coordinatesCorner(n-4,1),coordinatesCorner(n-1,2),windowSize);
+        [ xB,yB ] = CornerAnalysis(D,coordinatesCorner(n-4,3),coordinatesCorner(n-1,4),windowSize);
+        [ xC,yC ] = CornerAnalysis(D,coordinatesCorner(n-4,5),coordinatesCorner(n-1,6),windowSize);
+        [ xD,yD ] = CornerAnalysis(D,coordinatesCorner(n-4,7),coordinatesCorner(n-1,8),windowSize);
         
     end   
     
