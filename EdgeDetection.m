@@ -46,7 +46,7 @@ for n = [1:200]
     %colormap(flipud(gray(256))); 
     
     
-    windowSize = 40;
+    windowSize = 25;
     % find the best corner for each 4 corners of the page
     if n == 1
         [ xA,yA ] = CornerAnalysis(D,x(1),y(1),windowSize );
@@ -56,8 +56,8 @@ for n = [1:200]
     end
 
      if (n > 1) && (n <= 4)
-        [ xA,yA ] = CornerAnalysis(D,coordinatesCorner(n-1,1),coordinatesCorner(n-1,2),20);
-        [ xB,yB ] = CornerAnalysis(D,coordinatesCorner(n-1,3),coordinatesCorner(n-1,4),20);
+        [ xA,yA ] = CornerAnalysis(D,coordinatesCorner(n-1,1),coordinatesCorner(n-1,2),windowSize);
+        [ xB,yB ] = CornerAnalysis(D,coordinatesCorner(n-1,3),coordinatesCorner(n-1,4),windowSize);
         [ xC,yC ] = CornerAnalysis(D,coordinatesCorner(n-1,5),coordinatesCorner(n-1,6),windowSize);
         [ xD,yD ] = CornerAnalysis(D,coordinatesCorner(n-1,7),coordinatesCorner(n-1,8),windowSize);
         
@@ -74,18 +74,19 @@ for n = [1:200]
     if n > 4
         predictPoints =  predictCorners(predictPoints,coordinatesCorner,n);
         [ xA,yA ] = CornerAnalysis(D,predictPoints(n-3,1),predictPoints(n-3,2),windowSize);
-        [ xB,yB ] = CornerAnalysis(D,predictPoints(n-3,3),predictPoints(n-3,4),20);
+        [ xB,yB ] = CornerAnalysis(D,predictPoints(n-3,3),predictPoints(n-3,4),15);
         [ xC,yC ] = CornerAnalysis(D,predictPoints(n-3,5),predictPoints(n-3,6),windowSize);
         [ xD,yD ] = CornerAnalysis(D,predictPoints(n-3,7),predictPoints(n-3,8),windowSize);
+
         
     end   
     
-    figure, imshow(D, [0 20]); %, colormap(flipud(gray(256)));
+    imshow(D, [0 20]); %, colormap(flipud(gray(256)));
     hold on
-    scatter(xA,yA,100,n, 'filled')
-    scatter(xB,yB,100, 'filled')
-    scatter(xC,yC,100, 'filled')
-    scatter(xD,yD,100, 'filled')
+    scatter(xA,yA,100,'r', 'filled')
+    scatter(xB,yB,100,'r', 'filled')
+    scatter(xC,yC,100,'r', 'filled')
+    scatter(xD,yD,100,'r', 'filled')
     
     
 
