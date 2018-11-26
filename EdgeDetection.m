@@ -21,6 +21,7 @@ close all
 % (manually)
 coordinatesCorner = [x(1),y(1),x(2),y(2),x(3),y(3),x(4),y(4)];
 predictPoints = coordinatesCorner;
+figure,
 for n = [1:200]
     n
     im=read(v2,n);
@@ -42,8 +43,7 @@ for n = [1:200]
 
     D = harris(G,0.05, Ix, Iy,2).*abs(harris(G,0.05, Ix, Iy, 5));
     %D=max(D,0);
-    colormap(flipud(gray(256)));
-%     
+    %colormap(flipud(gray(256))); 
     
     
     windowSize = 40;
@@ -56,8 +56,8 @@ for n = [1:200]
     end
 
      if (n > 1) && (n <= 4)
-        [ xA,yA ] = CornerAnalysis(D,coordinatesCorner(n-1,1),coordinatesCorner(n-1,2),windowSize);
-        [ xB,yB ] = CornerAnalysis(D,coordinatesCorner(n-1,3),coordinatesCorner(n-1,4),windowSize);
+        [ xA,yA ] = CornerAnalysis(D,coordinatesCorner(n-1,1),coordinatesCorner(n-1,2),20);
+        [ xB,yB ] = CornerAnalysis(D,coordinatesCorner(n-1,3),coordinatesCorner(n-1,4),20);
         [ xC,yC ] = CornerAnalysis(D,coordinatesCorner(n-1,5),coordinatesCorner(n-1,6),windowSize);
         [ xD,yD ] = CornerAnalysis(D,coordinatesCorner(n-1,7),coordinatesCorner(n-1,8),windowSize);
         
@@ -80,12 +80,12 @@ for n = [1:200]
         
     end   
     
-    imshow(D, [0 20]);
+    figure, imshow(D, [0 20]); %, colormap(flipud(gray(256)));
     hold on
-    scatter(xA,yA)
-    scatter(xB,yB)
-    scatter(xC,yC)
-    scatter(xD,yD)
+    scatter(xA,yA,100,n, 'filled')
+    scatter(xB,yB,100, 'filled')
+    scatter(xC,yC,100, 'filled')
+    scatter(xD,yD,100, 'filled')
     
     
 

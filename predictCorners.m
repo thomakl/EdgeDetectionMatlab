@@ -3,7 +3,7 @@ function [predicted] = predictCorners(predictPoints,savePoints,currentFrame)
 %   Predict all the corner of the page according to the current frame
 % pxA : predicted coordinate x of the corner A
 
-pxA = predictX(savePoints(currentFrame-1,1),savePoints(currentFrame-2,1));
+pxA = predictX(savePoints(currentFrame-1,1),savePoints(currentFrame-2,1))
 pyA = predictX(savePoints(currentFrame-1,2),savePoints(currentFrame-2,2));
 pxB = predictX(savePoints(currentFrame-1,3),savePoints(currentFrame-2,3));
 pyB = predictX(savePoints(currentFrame-1,4),savePoints(currentFrame-2,4));

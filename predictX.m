@@ -6,7 +6,7 @@ function [X] = predictX(P1,P2)
 % P0 : the point predicted in the current frame (T0)
 
 
-X = P1 + (P1-P2)/2;
+X = round(P1 + abs(P1-P2)/2);
 
 end
 
