@@ -25,9 +25,9 @@ Result Harris = First Harris * abs(Second Harris)
 
 # Main Program 
 EdgeDetection.m : 
--- Call the video
--- Take each frame of the video
--- Apply each function describe below to get the corner of the page
+- Call the video
+- Take each frame of the video
+- Apply each function describe below to get the corner of the page
 
 # Functions
 grayScale.m  : Converting colored image into grayscale image
