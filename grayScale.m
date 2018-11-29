@@ -1,17 +1,14 @@
 function [grayI] = grayScale(I)
-%GRAYSCALE Average all the colors to the grayscale
-%   Detailed explanation goes here
-%tempImage = double(imread(I));
+% GRAYSCALE Average all the colors in order to get a grayscale  
 
 
-% ------------------ PREMIER FILTARGE --------------------------------
-
-%On "sépare" les différentes couches de couleurs de l'image sélectionnée
+% Se split all the color {Red, Green, Blue}
 R = I(:,:,1);
 G = I(:,:,2);
 B = I(:,:,3);
 
-%On fait la moyenne des trois
+% We get the average of it
 grayI = (R+G+B)/3;
+
 end
 

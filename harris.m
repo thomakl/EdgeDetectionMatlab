@@ -1,28 +1,30 @@
-function [ D ] = harris( I,k, Ix, Iy,sigma )
-%HARRIS Summary of this function goes here
-%   Detailed explanation goes here
+function [ D ] = harris(k, Ix, Iy,sigma )
+% HARRIS : Apply the Harris Corner detection method to an image given its
+% Gradient in X (Ix) and in Y (Iy) of Canny Edge Detector
 % set empirical constant between 0.04-0.06
+% We take a k = 0.05
+
 % Corner Detection
-%f = fspecial('gaussian');
-Cxx = Ix.*Ix;
-Cyy = Iy.*Iy; 
+Cxx = Ix.^2;
+Cyy = Iy.^2; 
 Cxy = Ix.*Iy; 
  
-sizeFilter = ceil(sigma*3)+1; % doit etre un entier
+sizeFilter = floor(sigma*3)+1; % needs to be a integer
 
-% Taille de filtre
-[X,Y]=meshgrid(-sizeFilter:sizeFilter);% Taille du filtre
+% Size of the filter
+[X,Y]=meshgrid(-sizeFilter:sizeFilter);
 
-%Filtre convolutif. Il faut un morceau à convoluer qui est plus gros que le
-%résultat qu'on veut obtenir.
-gaussienne = (1/(2*pi*(sigma^2)))*exp(-(((X.^2)+(Y.^2)) / (2 * (sigma ^ 2))));
-
-Cxx_=convn(Cxx,gaussienne,'same');
-Cyy_=convn(Cyy,gaussienne,'same');
-Cxy_=convn(Cxy,gaussienne,'same');
+% The Gaussian Derivative
+gaussianDerivative = exp(-(X.^2+Y.^2)/(2*sigma^2))/(2*pi*(sigma^2));
 
 
-%C'est la matrice de Harris
+% Convolution of the gaussian derivative with the Gradient in X and Y
+Cxx_=convn(Cxx,gaussianDerivative,'same');
+Cyy_=convn(Cyy,gaussianDerivative,'same');
+Cxy_=convn(Cxy,gaussianDerivative,'same');
+
+
+% Harris matrix of the Image
 D = Cxx_.*Cyy_ -(Cxy_.^2) - (k.*(Cxx_+Cxy_).^2);
 
 end
