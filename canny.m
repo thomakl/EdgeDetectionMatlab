@@ -1,27 +1,33 @@
-function [Ix, Iy ] = canny(I,sigma)
-%CANNY Summary of this function goes here
-% Create a version of the image only with its edges
+function [G,Ix, Iy ] = canny(I,sigma)
+%CANNY : Smoothing the image while finding the intensity gradient of the image
+%   Ix : Gradient for X : Convolution the image with the Gaussian
+%   Derivative
+%   Iy : Gradient for Y : Convolution the image with the Gaussian
+%   Derivative
 
-%Sigma, Attention a  suivre la regle des 3sigmas plus ou moins
+% filter= [-3*sigma+1;3*simga+1]
 sizeFilterCanny = floor(sigma*3)+1;
-% Taille de filtre
-[X,Y]=meshgrid(-sizeFilterCanny:sizeFilterCanny);% Taille du filtre
+% Creating the Filter
+[X,Y]=meshgrid(-sizeFilterCanny:sizeFilterCanny);
 
-
-%On determine les composantes x et y de l'image, en convoluant I avec la
-%derivee de la gaussienne en fonction de x ou y
-
+% Gaussian Derivative according to X 
 Gx=(-1/(2*pi*(sigma^4)))*X.*exp(-(((X.^2)+(Y.^2))/(2*(sigma^2))));
+% Gaussian Derivative according to Y
 Gy=(-1/(2*pi*(sigma^4)))*Y.*exp(-(((X.^2)+(Y.^2))/(2*(sigma^2))));
 
+% Other way to write the Gradients
 % Gx = -X .* (exp(-(X .^ 2 + Y .^ 2) / (2 * sigma^ 2)) / (2 * pi * sigma^ 4));
 % Gy = -Y .* (exp(-(X .^ 2 + Y .^ 2) / (2 * sigma^ 2)) / (2 * pi * sigma^ 4));
 
-Ix=convn(I,Gx,'same'); %C'est le gradient de X 
-Iy=convn(I,Gy,'same'); % C'est le gradient de Y 
-%Ca permet de faire ressortir les endroits ou les contours sont forts aka
-%les contours
+% We determine the X,Y component of the image by convoluing the image with
+% the Gaussian Derivative
+% Gradient for X
+Ix=convn(I,Gx,'same');
+% Gradient for Y
+Iy=convn(I,Gy,'same'); 
+% ==> It alllows us to emphasize the edges (and the corners)
 
-%G=(Ix.*Ix+Iy.*Iy).^0.5; %Composante normalisee = norme du gradient
+% Here's the Normalised Gradient (we don't need it here)
+G=(Ix.*Ix+Iy.*Iy).^0.5; %Composante normalisee = norme du gradient
 
 end

@@ -42,7 +42,7 @@ for n = 1:numFrames
     grayI = grayScale(imD);
     
     % Create a version of the image only with its edges
-    [Ix,Iy] = canny(grayI,2);
+    [G,Ix,Iy] = canny(grayI,2);
 
     % Apply a Harris detection with two different sigma to get the best of
     % the Harris combination 
@@ -81,7 +81,7 @@ for n = 1:numFrames
     coordinatesCorner = [coordinatesCorner;xA,yA,xB,yB,xC,yC,xD,yD];
     
     % Display the result of the prediction
-    imshow(D, [0 20]); %, colormap(flipud(gray(256)));
+    %imshow(D, [0 20]); %, colormap(flipud(gray(256)));
     hold on
     scatter(xA,yA,50,'r', 'filled')
     scatter(xB,yB,50,'r', 'filled')
