@@ -16,7 +16,7 @@ Derivative of the Gaussian Filter with sigma equal to 2
 ### Harris Corner Detection
 
 First Harris : GaussianFilter with sigma equal to 3
-Second Harris : GaussianFilter with sigma equal to 5
+Second Harris : Derivative of the GaussianFilter with sigma equal to 5
 
 Result Harris = First Harris * abs(Second Harris)
 
@@ -28,13 +28,12 @@ CornerDetection.m :
 - Call the video
 - Take each frame of the video
 - Apply each function describe below to get the corner of the page
-- Get the coordinates {X,Y} of each corner of the paper
 
 # Functions
-grayScale.m  : Converting colored image into grayscale image : better for Canny
+grayScale.m  : Converting colored image into grayscale image
+
+gaussianFilter.m : Applying the gaussian filter to the image
 
 canny.m : Canny Edge Detection applied to the image
 
 harris.m : Harris Corner Detection applied to the image
-
-findMaxHarrisCorner : Create a search window around a point (X,Y) and look fo the maximum of Harris
