@@ -8,7 +8,8 @@ Cxx = Ix.^2;
 Cyy = Iy.^2; 
 Cxy = Ix.*Iy; 
  
-sizeFilter = floor(sigma*3)+1; % needs to be a integer
+% filter : needs to be a integer
+sizeFilter = floor(sigma*3); 
 
 % Size of the filter
 [X,Y]=meshgrid(-sizeFilter:sizeFilter);
@@ -16,12 +17,10 @@ sizeFilter = floor(sigma*3)+1; % needs to be a integer
 % The Gaussian filter
 gaussian = exp(-(X.^2+Y.^2)/(2*sigma^2))/(2*pi*(sigma^2));
 
-
 % Convolution of the gaussian with the Gradient in X and Y
 Cxx_=convn(Cxx,gaussian,'same');
 Cyy_=convn(Cyy,gaussian,'same');
 Cxy_=convn(Cxy,gaussian,'same');
-
 
 % Harris matrix of the Image
 D = Cxx_.*Cyy_ -(Cxy_.^2) - (k.*(Cxx_+Cxy_).^2);

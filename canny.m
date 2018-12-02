@@ -5,8 +5,8 @@ function [G,Ix, Iy ] = canny(I,sigma)
 %   Iy : Gradient for Y : Convolution the image with the Gaussian
 %   Derivative
 
-% filter= [-3*sigma+1;3*simga+1]
-sizeFilterCanny = floor(sigma*3)+1;
+% filter= [-3*sigma+1;3*simga]
+sizeFilterCanny = floor(sigma*3);
 % Creating the Filter
 [X,Y]=meshgrid(-sizeFilterCanny:sizeFilterCanny);
 

@@ -28,6 +28,7 @@ numFrames = ceil(vidObj.FrameRate*vidObj.Duration);
 % coordinatesCorner = [TopLeftX TopLeftY TopRightX TopRightY BottomRightX
 % BottomRightY BottomLeftX BottomLeftY]
 coordinatesCorner = [685 411 1339 234 628 768 1432 582];
+coordinatesCorner = [685 411 1339 234 1432 582 628 768 ];
 
 % Create a matrix where we will add the predicted point of the corner with
 % the same logic as coordinatesCorner
@@ -42,11 +43,11 @@ for n = 1:numFrames
     grayI = grayScale(imD);
     
     % Create a version of the image only with its edges
-    [G,Ix,Iy] = canny(grayI,2);
+    [G,Ix,Iy] = canny(grayI,3.5);
 
     % Apply a Harris detection with two different sigma to get the best of
     % the Harris combination 
-    D = harris(0.05, Ix, Iy,3).*abs(harris(0.05, Ix, Iy, 5));
+    D = harris(0.05, Ix, Iy,5).*abs(harris(0.05, Ix, Iy, 3));
 
     % Set the default size of the search window
     windowSize = 18;

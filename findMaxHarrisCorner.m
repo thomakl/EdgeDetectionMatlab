@@ -15,6 +15,5 @@ function [ xMaxHarris,yMaxHarris ] = findMaxHarrisCorner(I,Xo,Yo,size)
                 yMaxHarris = column;
             end
         end
-    end
-    
+    end 
 end
